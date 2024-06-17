@@ -1,7 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router} from 'react-router-dom';
-import Header from './Components/Header';
-import NavBar from './Components/NavBar';
+import React from "react";
+
+import { BrowserRouter as Router } from "react-router-dom";
+import Header from "./Components/Header";
+import NavBar from "./Components/NavBar";
+import "./App.css";
 
 function App() {
   return (
@@ -9,8 +11,8 @@ function App() {
       <div className="title">
         <Header />
         <div className="nav-bar">
-              <NavBar />
-            </div>
+          <NavBar />
+        </div>
       </div>
     </Router>
   );

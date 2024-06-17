@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import "./Styles/NavBar.css";
+import "../Styles/NavBar.css";
 import Home from "./Home";
 import Friends from "./Friends";
 import MyPage from "./MyPage";

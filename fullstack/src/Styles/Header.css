@@ -1,0 +1,18 @@
+.header {
+  background-color: #F7CB46;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border: solid black;
+  border-width: 0 0 2px 0;
+  position: sticky; 
+  top: 0; 
+  z-index: 1000;
+}
+
+.icon {
+  width: 40px; 
+  height: 40px; 
+  margin-right: 10px; 
+  border-radius: 50%;
+}
