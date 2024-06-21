@@ -1,15 +1,36 @@
-import React, { useState } from "react";
-import sampleData from "../sample.json";
+// Home.js
+import React, { useState, useEffect } from "react";
 import "../Styles/Home.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import Comment from "./Comment";
 
 const Home = () => {
-  const [data] = useState(sampleData.comments);
+  const [users, setUsers] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [replies, setReplies] = useState([]);
   const [search, setSearch] = useState("");
   const [comment, setComment] = useState("");
-  const [showDeleteButton, setShowDeleteButton] = useState(false);
-  const [showEditButton, setShowEditButton] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      const usersRes = await fetch("http://localhost:5000/api/users");
+      const usersData = await usersRes.json();
+      setUsers(usersData);
+
+      const commentsRes = await fetch("http://localhost:5000/api/comments");
+      const commentsData = await commentsRes.json();
+      setComments(commentsData);
+
+      const repliesRes = await fetch("http://localhost:5000/api/replies");
+      const repliesData = await repliesRes.json();
+      setReplies(repliesData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -39,68 +60,14 @@ const Home = () => {
         </form>
       </div>
       <div className="comments">
-        {data.map((comment) => {
-          return (
-            <div key={comment.id} className="comment">
-              <div className="user-info">
-                <div className="left-side">
-                  <img
-                    src={comment.user.image.png}
-                    alt={comment.user.username}
-                  />
-                  {/* <img
-                        src="https://www.comingsoon.net/wp-content/uploads/sites/3/2022/06/Baby-Groot.jpeg?w=800"
-                        alt="Baby Groot"
-                      /> */}
-                  <p>{comment.user.username}</p>
-                  <p>{comment.createdAt}</p>
-                </div>
-                <div className="right-side">
-                  <div
-                    className="menu-icon"
-                    onClick={() => {
-                      setShowDeleteButton(!showDeleteButton);
-                      setShowEditButton(!showEditButton);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faEllipsisV} />
-                  </div>
-                </div>
-              </div>
-              <p>{comment.content}</p>
-              <div className="replies">
-                {comment.replies.map((reply) => {
-                  return (
-                    <div key={reply.id} className="reply">
-                      <div className="user-info">
-                        <div className="left-side">
-                          <img
-                            src={reply.user.image.png}
-                            alt={reply.user.username}
-                          />
-                          <p>{reply.user.username}</p>
-                          <p>{reply.createdAt}</p>
-                        </div>
-                        <div className="right-side">
-                          <div
-                            className="menu-icon"
-                            onClick={() => {
-                              setShowDeleteButton(!showDeleteButton);
-                              setShowEditButton(!showEditButton);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faEllipsisV} />
-                          </div>
-                        </div>
-                      </div>
-                      <p>{reply.content}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+        {comments.map(comment => (
+          <Comment
+            key={comment.id}
+            comment={comment}
+            users={users}
+            replies={replies}
+          />
+        ))}
       </div>
       <div className="post">
         <form
