@@ -16,7 +16,7 @@ const Reply = ({ reply, users }) => {
             alt="Baby Groot"
           />
           <p>{replyUser.username}</p>
-          <p>{reply.createdat}</p>
+          <p>{new Date(reply.createdat).toLocaleDateString()}</p>
         </div>
         <div className="right-side">
           <div className="menu-icon">

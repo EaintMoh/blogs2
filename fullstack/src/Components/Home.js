@@ -63,10 +63,10 @@ const Home = () => {
         body: JSON.stringify({ comment, userId: selectedUser }),
       });
       if (!response.ok) {
-        throw new Error('サーバーからのレスポンスが正常ではありません。');
+        throw new Error("サーバーからのレスポンスが正常ではありません。");
       }
       const newComment = await response.json();
-      setComments(prevComments => [...prevComments, newComment]);
+      setComments((prevComments) => [newComment, ...prevComments]);
       setComment("");
       setSelectedUser("");
     } catch (error) {
@@ -83,9 +83,9 @@ const Home = () => {
       body: JSON.stringify({ commentId, userId, content }),
     });
     const newReply = await response.json();
-    setReplies([...replies, newReply]);
+    setReplies((prevReplies) => [newReply, ...prevReplies]);
   };
-  
+
   return (
     <div className="home-container">
       <div className="Search">

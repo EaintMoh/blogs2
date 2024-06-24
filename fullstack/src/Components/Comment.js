@@ -44,7 +44,7 @@ const Comment = ({ comment, users, replies, saveReply }) => {
             alt="Baby Groot"
           />
           <p>{user.username}</p>
-          <p>{comment.createdat}</p>
+          <p>{new Date(comment.createdat).toLocaleDateString()}</p>
         </div>
         <div className="right-side">
           <div className="menu-icon">

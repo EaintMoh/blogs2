@@ -20,12 +20,12 @@ router.get("/comments", async (req, res) => {
   }
 });
 
-router.get('/replies', async (req, res) => {
+router.get("/replies", async (req, res) => {
   try {
-      const replies = await blogModel.getReplies();
-      res.json(replies);
+    const replies = await blogModel.getReplies();
+    res.json(replies);
   } catch (err) {
-      res.status(500).send(err.message);
+    res.status(500).send(err.message);
   }
 });
 
@@ -47,7 +47,9 @@ router.post("/comments", async (req, res) => {
 router.post("/replies", async (req, res) => {
   const { commentId, userId, content } = req.body;
   if (!content || !userId || !commentId) {
-    return res.status(400).send("コメントID、ユーザーID、または返信内容がありません。");
+    return res
+      .status(400)
+      .send("コメントID、ユーザーID、または返信内容がありません。");
   }
   try {
     const newReply = await blogModel.saveReply(commentId, userId, content);
