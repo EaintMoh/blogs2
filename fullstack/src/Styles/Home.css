@@ -170,3 +170,39 @@
     line-height: 30px;
     border: none;
 }
+
+.ReplyBox {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.ReplyForm {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 20px;
+    border: solid black;
+    border-width: 1px 2px 4px 2px;
+    background-color: white;
+}
+
+.ReplyForm textarea {
+    width: 80%;
+    height: 30px;
+    resize: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.ReplyForm button {
+    width: 15%;
+    background-color: #F7CB46;
+    color: black;
+    padding: 1px 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    white-space: nowrap;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+}

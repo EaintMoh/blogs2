@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect } from "react";
 import "../Styles/Home.css";
 import Comment from "./Comment";
@@ -9,6 +8,7 @@ const Home = () => {
   const [replies, setReplies] = useState([]);
   const [search, setSearch] = useState("");
   const [comment, setComment] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
 
   const fetchData = async () => {
     try {
@@ -44,8 +44,48 @@ const Home = () => {
     setComment(event.target.value);
   };
 
-  const sendComment = () => {};
+  const handleUserChange = (event) => {
+    setSelectedUser(event.target.value);
+  };
 
+  const handlePostSubmit = async (e) => {
+    e.preventDefault();
+    if (!comment.trim() || !selectedUser) {
+      alert("コメントまたはユーザーが選択されていません。");
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:5000/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment, userId: selectedUser }),
+      });
+      if (!response.ok) {
+        throw new Error('サーバーからのレスポンスが正常ではありません。');
+      }
+      const newComment = await response.json();
+      setComments(prevComments => [...prevComments, newComment]);
+      setComment("");
+      setSelectedUser("");
+    } catch (error) {
+      console.error("コメントの投稿に失敗しました:", error);
+    }
+  };
+
+  const saveReply = async (commentId, userId, content) => {
+    const response = await fetch("http://localhost:5000/api/replies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ commentId, userId, content }),
+    });
+    const newReply = await response.json();
+    setReplies([...replies, newReply]);
+  };
+  
   return (
     <div className="home-container">
       <div className="Search">
@@ -60,23 +100,26 @@ const Home = () => {
         </form>
       </div>
       <div className="comments">
-        {comments.map(comment => (
+        {comments.map((comment) => (
           <Comment
             key={comment.id}
             comment={comment}
             users={users}
-            replies={replies}
+            replies={replies.filter((reply) => reply.comment_id === comment.id)}
+            saveReply={saveReply}
           />
         ))}
       </div>
       <div className="post">
-        <form
-          className="postForm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            sendComment();
-          }}
-        >
+        <form className="postForm" onSubmit={handlePostSubmit}>
+          <select value={selectedUser} onChange={handleUserChange} required>
+            <option value="">ユーザーを選択</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.username}
+              </option>
+            ))}
+          </select>
           <textarea
             name="comment"
             value={comment}

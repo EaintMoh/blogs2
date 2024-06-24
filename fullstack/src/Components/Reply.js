@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 const Reply = ({ reply, users }) => {
-  const replyUser = users.find(user => user.id === reply.user_id) || {};
+  const replyUser = users.find((user) => user.id === reply.user_id) || {};
+  console.log(reply);
 
   return (
     <div className="reply">
@@ -14,7 +15,7 @@ const Reply = ({ reply, users }) => {
             alt="Baby Groot"
           />
           <p>{replyUser.username}</p>
-          <p>{reply.createdAt}</p>
+          <p>{reply.createdat}</p>
         </div>
         <div className="right-side">
           <div className="menu-icon">
