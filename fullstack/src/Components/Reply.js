@@ -1,10 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import "../Styles/Reply.css";
 
 const Reply = ({ reply, users }) => {
   const replyUser = users.find((user) => user.id === reply.user_id) || {};
-  console.log(reply);
+  // console.log(reply);
 
   return (
     <div className="reply">

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import Reply from "./Reply";
+import "../Styles/Comment.css";
 
 const Comment = ({ comment, users, replies, saveReply }) => {
   const [selectedUser, setSelectedUser] = useState("");

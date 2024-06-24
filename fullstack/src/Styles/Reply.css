@@ -1,0 +1,36 @@
+.replies>div {
+    border: solid black;
+    border-width: 2px 4px 4px 1px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #F8F4F1;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column; 
+}
+
+.replies>div>.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.replies>div>.user-info>.left-side {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.replies>div>p {
+    text-align: left; 
+    margin-top: 10px;
+    margin-left: 70px;
+}
+
+.replies>div>.user-info>.right-side {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 15px;
+}

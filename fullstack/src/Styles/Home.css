@@ -27,10 +27,15 @@
 .Search button {
     padding: 10px 20px;
     background-color: #F7CB46;
-    color: white;
+    color: #333;
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Search button:hover {
+    background-color: #f8d053;
 }
 
 .comments {
@@ -40,96 +45,6 @@
     padding: 20px;
     overflow-x: hidden; 
     overflow-y: auto;
-    /* min-height: 100px; */
-}
-
-.comments>div {
-    border: solid black;
-    border-width: 2px 4px 4px 1px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #F8F4F1;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column; 
-}
-
-.comments>div>.user-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.comments>div>.user-info>.left-side {
-    display: flex;
-    align-items: center;
-}
-
-.comments>div>.user-info>.right-side {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 15px;
-}
-
-.menu-icon {
-    cursor: pointer;
-    width: 30px; 
-    height: 30px; 
-    border-radius: 50%; 
-    background-color: #ccc; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-  
-  .menu-icon:hover {
-    background-color: #ddd;
-  }
-  
-  .menu-icon svg {
-    color: #333; 
-    font-size: 16px; 
-  }
-
-.replies {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 40px;
-}
-
-.replies>div {
-    border: solid black;
-    border-width: 2px 4px 4px 1px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #F8F4F1;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column; 
-}
-
-.replies>div>.user-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.replies>div>.user-info>.left-side {
-    display: flex;
-    align-items: center;
-}
-
-.replies>div>.user-info>.right-side {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 15px;
 }
 
 .post {
@@ -156,45 +71,10 @@
     resize: none;
     padding: 10px;
     border-radius: 20px;
+    border: 1px solid #F7CB46;
 }
 
 .postForm button {
-    width: 15%;
-    background-color: #F7CB46;
-    color: black;
-    padding: 1px 15px;
-    cursor: pointer;
-    border-radius: 20px;
-    white-space: nowrap;
-    height: 50px;
-    line-height: 30px;
-    border: none;
-}
-
-.ReplyBox {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.ReplyForm {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    border-radius: 20px;
-    border: solid black;
-    border-width: 1px 2px 4px 2px;
-    background-color: white;
-}
-
-.ReplyForm textarea {
-    width: 80%;
-    height: 30px;
-    resize: none;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-.ReplyForm button {
     width: 15%;
     background-color: #F7CB46;
     color: black;
