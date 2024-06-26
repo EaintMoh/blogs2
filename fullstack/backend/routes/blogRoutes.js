@@ -59,6 +59,66 @@ router.post("/replies", async (req, res) => {
   }
 });
 
+router.get("/comments/search", async (req, res) => {
+  const { query } = req.query;
+  try {
+    const comments = await blogModel.searchComments(query);
+    res.json(comments);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+router.delete("/comments/:commentId", async (req, res) => {
+  try {
+    const deletedComment = await blogModel.deleteComment(req.params.commentId);
+    res.status(200).json(deletedComment);
+  } catch (err) {
+    res.status(500).send("コメントの削除中にエラーが発生しました: " + err.message);
+  }
+});
+
+router.delete("/replies/:replyId", async (req, res) => {
+  try {
+    const deletedReply = await blogModel.deleteReply(req.params.replyId);
+    res.status(200).json(deletedReply);
+  } catch (err) {
+    res.status(500).send("返信の削除中にエラーが発生しました: " + err.message);
+  }
+});
+
+router.put("/comments/:commentId", async (req, res) => {
+  const { content } = req.body;
+  if (!content) {
+    return res.status(400).send("返信内容がありません。");
+  }
+  try {
+    const updatedComment = await blogModel.updateComment(
+      req.params.commentId,
+      content
+    );
+    res.status(200).json(updatedComment);
+  } catch (err) {
+    res.status(500).send("返信の更新中にエラーが発生しました: " + err.message);
+  }
+});
+
+router.put("/replies/:replyId", async (req, res) => {
+  const { content } = req.body;
+  if (!content) {
+    return res.status(400).send("返信内容がありません。");
+  }
+  try {
+    const updatedReply = await blogModel.updateReply(
+      req.params.replyId,
+      content
+    );
+    res.status(200).json(updatedReply);
+  } catch (err) {
+    res.status(500).send("返信の更新中にエラーが発生しました: " + err.message);
+  }
+});
+
 module.exports = router;
 
 //   console.log("受け取ったコメント:", req.body.comment);

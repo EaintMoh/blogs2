@@ -38,6 +38,14 @@ const Home = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+    if (search.trim() === "") {
+      fetchData();
+    } else {
+      const filteredComments = comments.filter((comment) =>
+        comment.content.toLowerCase().includes(search.toLowerCase())
+      );
+      setComments(filteredComments);
+    }
   };
 
   const handleCommentChange = (event) => {
@@ -68,6 +76,7 @@ const Home = () => {
       const newComment = await response.json();
       setComments((prevComments) => [newComment, ...prevComments]);
       setComment("");
+
       setSelectedUser("");
     } catch (error) {
       console.error("コメントの投稿に失敗しました:", error);
@@ -86,6 +95,27 @@ const Home = () => {
     setReplies((prevReplies) => [newReply, ...prevReplies]);
   };
 
+  const updateComment = (updatedComment) => {
+    setComments((prevComments) =>
+      prevComments.map((comment) =>
+        comment.id === updatedComment.id ? updatedComment : comment
+      )
+    );
+  };
+
+  const deleteReply = (replyId) => {
+    setReplies((prevReplies) =>
+      prevReplies.filter((reply) => reply.id !== replyId)
+    );
+  };
+
+
+  const deleteComment = (deletedCommentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== deletedCommentId)
+    );
+  };
+
   return (
     <div className="home-container">
       <div className="Search">
@@ -100,13 +130,16 @@ const Home = () => {
         </form>
       </div>
       <div className="comments">
-        {comments.map((comment) => (
+        {comments.filter(Boolean).map((comment) => (
           <Comment
             key={comment.id}
-            comment={comment}
+            commentData={comment}
             users={users}
             replies={replies.filter((reply) => reply.comment_id === comment.id)}
             saveReply={saveReply}
+            updateComment={updateComment}
+            deleteComment={deleteComment} 
+            deleteReply={deleteReply}
           />
         ))}
       </div>
