@@ -11,7 +11,6 @@ const Comment = ({
   saveReply,
   updateComment,
   deleteComment,
-  deleteReply,
 }) => {
   const [selectedUser, setSelectedUser] = useState("");
   const [replyContent, setReplyContent] = useState("");
@@ -58,7 +57,7 @@ const Comment = ({
       );
 
       if (res.ok) {
-        deleteComment(comment.id); // Call the deleteComment function instead of updateComment
+        deleteComment(comment.id); 
         console.log("Comment deleted successfully!");
       } else {
         console.error("Failed to delete comment:", res.statusText);
@@ -95,8 +94,8 @@ const Comment = ({
       if (res.ok) {
         console.log("Comment edited successfully!");
         const updatedComment = await res.json();
-        updateComment(updatedComment); // Update the comment in the parent component
-        comment.content = editedContent; // Update the local state
+        updateComment(updatedComment); 
+        comment.content = editedContent; 
         setEditMode(false);
       } else {
         console.error("Failed to edit comment:", res.statusText);

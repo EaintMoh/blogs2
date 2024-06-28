@@ -3,7 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Reply.css";
 
-const Reply = ({ replyData, users, onDelete }) => {
+const Reply = ({ 
+  replyData, 
+  users, 
+  onDelete 
+}) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [showEditButton, setShowEditButton] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -11,6 +15,32 @@ const Reply = ({ replyData, users, onDelete }) => {
   const [reply, setReply] = useState(replyData);
   const menuIconRef = useRef(null);
   const replyUser = users.find((user) => user.id === reply.user_id) || {};
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const menuIcon = menuIconRef.current;
+      const deleteButton = document.querySelector(".delete-button");
+      const editButton = document.querySelector(".edit-button");
+
+      if (menuIcon && menuIcon.contains(event.target)) {
+        return;
+      }
+
+      if (deleteButton && !deleteButton.contains(event.target)) {
+        setShowDeleteButton(false);
+      }
+
+      if (editButton && !editButton.contains(event.target)) {
+        setShowEditButton(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleDelete = async () => {
     try {
@@ -62,32 +92,6 @@ const Reply = ({ replyData, users, onDelete }) => {
       console.error("Error editing reply:", error);
     }
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const menuIcon = menuIconRef.current;
-      const deleteButton = document.querySelector(".delete-button");
-      const editButton = document.querySelector(".edit-button");
-
-      if (menuIcon && menuIcon.contains(event.target)) {
-        return;
-      }
-
-      if (deleteButton && !deleteButton.contains(event.target)) {
-        setShowDeleteButton(false);
-      }
-
-      if (editButton && !editButton.contains(event.target)) {
-        setShowEditButton(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="reply">

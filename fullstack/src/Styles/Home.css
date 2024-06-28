@@ -5,6 +5,7 @@
     margin: 0 auto;
     padding: 0 30px;
     max-width: 800px;
+    margin-left: 25px;
 }
 
 .Search {
@@ -85,4 +86,19 @@
     height: 50px;
     line-height: 30px;
     border: none;
+}
+
+@media (min-width: 960px) {
+    .home-container {
+        max-width: 960px;
+        margin-left: 29px;
+        z-index: 1;
+    }
+}
+
+@media (max-width: 960px) {
+    .home-container {
+        max-width: 100%;
+        z-index: 1;
+    }
 }
