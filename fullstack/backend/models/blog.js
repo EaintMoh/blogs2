@@ -1,22 +1,35 @@
 const pool = require("../database");
 
 const getUsers = async () => {
-  const results = await pool.query("SELECT * FROM users");
-  return results.rows;
+  try {
+    const results = await pool.query("SELECT * FROM users");
+    return results.rows;
+  } catch (err) {
+    console.error("データベースエラー:", err);
+    throw err;
+  }
 };
 
 const getComments = async () => {
+  try {
   const results = await pool.query(
-    "SELECT * FROM comments ORDER BY createdat DESC"
-  );
+    "SELECT * FROM comments ORDER BY createdat DESC");
   return results.rows;
+} catch (err) {
+  console.error("データベースエラー:", err);
+  throw err;
+}
 };
 
 const getReplies = async () => {
+  try {
   const results = await pool.query(
-    "SELECT * FROM replies ORDER BY createdat DESC"
-  );
+    "SELECT * FROM replies ORDER BY createdat DESC");
   return results.rows;
+} catch (err) {
+  console.error("データベースエラー:", err);
+  throw err;
+}
 };
 
 const saveComment = async (comment, userId) => {
